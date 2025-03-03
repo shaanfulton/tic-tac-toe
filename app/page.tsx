@@ -1,19 +1,61 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { Board, Squares } from "@/components/board";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
-export default function Home() {
+export default function Game() {
+    const [history, setHistory] = useState<Squares[]>([Array(9).fill(null)]);
+    const [currentMove, setCurrentMove] = useState(0);
+    const xIsNext = currentMove % 2 === 0;
+    const currentSquares = history[currentMove];
+
+    function handlePlay(nextSquares: Squares) {
+        const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+        setHistory(nextHistory);
+        setCurrentMove(nextHistory.length - 1);
+    }
+
+    function jumpTo(nextMove: number) {
+        setCurrentMove(nextMove);
+    }
+
+    function resetGame() {
+        setHistory([Array(9).fill(null)]);
+        setCurrentMove(0);
+    }
+
+    const moves = history.map((squares, move) => {
+        let description;
+        if (move > 0) {
+            description = "Go to move #" + move;
+        } else {
+            description = "Go to game start";
+        }
+        return (
+            <li key={move} className="mt-2">
+                <Button onClick={() => jumpTo(move)}>{description}</Button>
+            </li>
+        );
+    });
+
     return (
-        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-            <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-                <h1>Next.js Tic Tac Toe</h1>
-
-                <div className="flex gap-4 items-center flex-col sm:flex-row">
-                    <Button asChild>
-                        <Link href="/game">Play</Link>
-                    </Button>
+        <div className="flex flex-col gap-8 justify-center items-start p-4">
+            <div className="flex flex-row md:flex-row gap-8 justify-center items-center p-4">
+                <div className="flex flex-col items-start gap-4 mt-8">
+                    <Board
+                        xIsNext={xIsNext}
+                        squares={currentSquares}
+                        onPlay={handlePlay}
+                    />
                 </div>
-            </main>
+                <div className="mt-4 md:mt-0">
+                    <ol className="list-decimal pl-5 mt-2">{moves}</ol>
+                </div>
+            </div>
+            <Button variant="secondary" onClick={resetGame}>
+                Reset Game
+            </Button>
         </div>
     );
 }

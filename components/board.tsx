@@ -36,7 +36,7 @@ export function Board({ xIsNext, squares, onPlay }: BoardProps) {
 
     return (
         <>
-            <div className="text-xl font-semibold mb-4 text-center">
+            <div className="text-xl text-secondary font-semibold mb-4">
                 {status}
             </div>
             <div className="flex flex-row justify-center gap-4">
