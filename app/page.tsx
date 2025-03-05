@@ -16,28 +16,10 @@ export default function Game() {
         setCurrentMove(nextHistory.length - 1);
     }
 
-    function jumpTo(nextMove: number) {
-        setCurrentMove(nextMove);
-    }
-
     function resetGame() {
         setHistory([Array(9).fill(null)]);
         setCurrentMove(0);
     }
-
-    const moves = history.map((squares, move) => {
-        let description;
-        if (move > 0) {
-            description = "Go to move #" + move;
-        } else {
-            description = "Go to game start";
-        }
-        return (
-            <li key={move} className="mt-2">
-                <Button onClick={() => jumpTo(move)}>{description}</Button>
-            </li>
-        );
-    });
 
     return (
         <div className="min-w-[250px] flex flex-col gap-8 justify-center items-center p-4">
