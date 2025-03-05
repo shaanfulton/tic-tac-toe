@@ -40,7 +40,7 @@ export default function Game() {
     });
 
     return (
-        <div className="flex flex-col gap-8 justify-center items-start p-4">
+        <div className="min-w-[250px] flex flex-col gap-8 justify-center items-center p-4">
             <div className="flex flex-row md:flex-row gap-8 justify-center items-center p-4">
                 <div className="flex flex-col items-start gap-4 mt-8">
                     <Board
@@ -48,9 +48,6 @@ export default function Game() {
                         squares={currentSquares}
                         onPlay={handlePlay}
                     />
-                </div>
-                <div className="mt-4 md:mt-0">
-                    <ol className="list-decimal pl-5 mt-2">{moves}</ol>
                 </div>
             </div>
             <Button variant="secondary" onClick={resetGame}>

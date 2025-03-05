@@ -35,7 +35,7 @@ export function Board({ xIsNext, squares, onPlay }: BoardProps) {
     }
 
     return (
-        <>
+        <div className="flex flex-col gap-4 items-center">
             <div className="text-xl text-secondary font-semibold mb-4">
                 {status}
             </div>
@@ -81,6 +81,6 @@ export function Board({ xIsNext, squares, onPlay }: BoardProps) {
                     onSquareClick={() => handleClick(8)}
                 />
             </div>
-        </>
+        </div>
     );
 }
